@@ -97,6 +97,7 @@ const config: Configuration = {
       template: 'src/public/index.html',
     }),
     new HotModuleReplacementPlugin(),
+    new MiniCssExtractPlugin()
   ],
   devtool: "inline-source-map",
   devServer: {

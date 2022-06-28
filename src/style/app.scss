@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
+html,
+body {
+    margin: 0;
+    font-family: 'Lato', sans-serif;
+}
+
+.search-container {
+    background: url('../img/search.jpg');
+    height: 200px;
+    filter: hue-rotate(82deg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    input {
+        margin: auto;
+        display: block;
+        width: 320px;
+        padding: 0.375rem 0.75rem;
+        font-size: 1rem;
+        line-height: 1.5;
+        color: #495057;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        border-radius: 0.25rem;
+        transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    
+    }
+}
+
+.logo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 320px;
+}
+
+.container {
+    max-width: 960px;
+    margin: auto;
+    text-align: center;
+}
+
+.overflow-container {
+    margin: 30px 0;
+    overflow: hidden;
+    overflow-y: scroll;
+    height: calc(100vh - 460px);
+}
+
+
+
+.pills-container {
+    display: flex;
+    flex-wrap: wrap;
+
+    .pill {
+        background-color: #ddd;
+        border: none;
+        color: black;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 16px;
+    }
+
+    .pill-primary {
+        background-color: #caeffc;
+    }
+
+    .pill-secondary {
+        background-color: #99d3f7;
+    }
+}
+
