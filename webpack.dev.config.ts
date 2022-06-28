@@ -13,7 +13,7 @@ const config: Configuration = {
   output: {
     publicPath: "/",
   },
-  entry: "./src/app.tsx",
+  entry: "/src/app.tsx",
   module: {
     rules: [
       {
@@ -80,16 +80,17 @@ const config: Configuration = {
         use: [{
           loader: "babel-loader", options: {
             cacheDirectory: true,
-            presets: ['@babel/preset-env'],
-            plugins: ["@babel/plugin-transform-arrow-functions"]
+            presets: ['@babel/preset-env']
           },
         }]
       },
     ],
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".js"],
+    extensions: [".ts", ".tsx", ".js", ".json"],
+    modules: [path.resolve(__dirname, 'src'), 'node_modules']
   },
+
   plugins: [
     new HtmlWebpackPlugin({
       filename: 'index.html',

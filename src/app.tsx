@@ -1,11 +1,15 @@
+import { MainPage } from "./pages/main";
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 const App = () => (
-  <h1>My React and TypeScript App!</h1>
+  <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<MainPage />} />
+    </Routes>
+  </BrowserRouter>
 );
 
-ReactDOM.render(
-    <App />,
-  document.getElementById("root")
-);
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+root.render(<App />);
