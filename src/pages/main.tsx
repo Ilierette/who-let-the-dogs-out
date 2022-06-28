@@ -19,6 +19,8 @@ export const MainPage = () => {
     const { breed, sub } = useParams()
     const [error, setError] = useState(null)
 
+    const [isLoading, setIsLoading] = useState(true)
+
     useEffect(() => {
         dogService.getAll().then((resp) => {
             const temp = []
@@ -30,8 +32,10 @@ export const MainPage = () => {
             })
             setDogs(temp)
             setTempDogs(temp)
+            setIsLoading(false)
         }).catch((ex) => {
             setError("Wystąpił błąd. Spróbuj ponownie później")
+            setIsLoading(false)
         })
 
         if (breed) {
@@ -60,32 +64,39 @@ export const MainPage = () => {
 
     return (
         <>
-            <img className="logo" src={require('../img/logo.jpg')} />
-            <div className="search-container">
-                <label className="form-control">
-                    <input type="text" name="name" placeholder="Search..." onChange={handleSearch} />
-                </label>
-            </div>
-
             {
-                error && <div className="error-container">
-                    <img src={require('../img/error.svg')} />
-                    {error}
-                </div>
-            }
+                isLoading ? <div className="loader">
+                    <div className="lds-ripple"><div></div><div></div></div>
+                </div> : <>
+                    <img className="logo" src={require('../img/logo.jpg')} />
+                    <div className="search-container">
+                        <label className="form-control">
+                            <input type="text" name="name" placeholder="Search..." onChange={handleSearch} />
+                        </label>
+                    </div>
+                    <div className="overflow-container">
+                        {
+                            error && <div className="error-container">
+                                <img src={require('../img/error.svg')} />
+                                {error}
+                            </div>
+                        }
 
-            {dogs && <div className="pills-container">
-                {dogs.map((dog: Dog) => (
-                    <>
-                        <button onClick={() => handleModal(dog.name)} key={dog.name} className="btn btn-primary">{dog.name}</button>
-                        {dog.subbreed.map((breed: string) => (
-                            <button key={breed} onClick={() => handleModal(dog.name, breed)} className="btn btn-secondary">{breed} ({dog.name})</button>
-                        ))}
-                    </>
-                ))}
-            </div>}
-            {
-                isOpen && <Modal breed={dogBreed} handleModal={() => setIsOpen(!isOpen)} />
+                        {dogs && <div className="pills-container">
+                            {dogs.map((dog: Dog) => (
+                                <>
+                                    <button onClick={() => handleModal(dog.name)} key={dog.name} className="btn btn-primary">{dog.name}</button>
+                                    {dog.subbreed.map((breed: string) => (
+                                        <button key={breed} onClick={() => handleModal(dog.name, breed)} className="btn btn-secondary">{breed} ({dog.name})</button>
+                                    ))}
+                                </>
+                            ))}
+                        </div>}
+                    </div>
+                    {
+                        isOpen && <Modal breed={dogBreed} handleModal={() => setIsOpen(!isOpen)} />
+                    }
+                </>
             }
         </>
     )
