@@ -1,6 +1,7 @@
 import { Modal } from "components/modal";
 import { useServices } from "contexts";
 import React, { useEffect, useState } from "react";
+import { useParams } from 'react-router-dom';
 
 interface Dog {
     name: string,
@@ -12,8 +13,11 @@ export const MainPage = () => {
     const [dogs, setDogs] = useState(null);
     const [tempDogs, setTempDogs] = useState(null);
 
-    const [breed, setBreed] = useState("")
+    const [dogBreed, setDogBreed] = useState("")
     const [isOpen, setIsOpen] = useState(false)
+
+    const { breed, sub } = useParams()
+    const [error, setError] = useState(null)
 
     useEffect(() => {
         dogService.getAll().then((resp) => {
@@ -26,7 +30,13 @@ export const MainPage = () => {
             })
             setDogs(temp)
             setTempDogs(temp)
+        }).catch((ex) => {
+            setError("Wystąpił błąd. Spróbuj ponownie później")
         })
+
+        if (breed) {
+            handleModal(breed, sub)
+        }
     }, [])
 
     const handleSearch = (e) => {
@@ -37,13 +47,13 @@ export const MainPage = () => {
     const handleModal = (name?: string, breed?: string) => {
         if (name) {
             if (breed) {
-                setBreed(name + "/" + breed)
+                setDogBreed(name + "/" + breed)
             } else {
-                setBreed(name)
+                setDogBreed(name)
             }
         }
         else {
-            setBreed("")
+            setDogBreed("")
         }
         setIsOpen(!isOpen)
     }
@@ -56,8 +66,16 @@ export const MainPage = () => {
                     <input type="text" name="name" placeholder="Search..." onChange={handleSearch} />
                 </label>
             </div>
-            <div className="pills-container">
-                {dogs && dogs.map((dog: Dog) => (
+
+            {
+                error && <div className="error-container">
+                    <img src={require('../img/error.svg')} />
+                    {error}
+                </div>
+            }
+
+            {dogs && <div className="pills-container">
+                {dogs.map((dog: Dog) => (
                     <>
                         <button onClick={() => handleModal(dog.name)} key={dog.name} className="btn btn-primary">{dog.name}</button>
                         {dog.subbreed.map((breed: string) => (
@@ -65,9 +83,9 @@ export const MainPage = () => {
                         ))}
                     </>
                 ))}
-            </div>
+            </div>}
             {
-                isOpen && <Modal breed={breed} handleModal={handleModal} />
+                isOpen && <Modal breed={dogBreed} handleModal={() => setIsOpen(!isOpen)} />
             }
         </>
     )

@@ -36,6 +36,11 @@ body {
         color: $white;
         text-shadow: $shadow
     }
+
+    &:disabled {
+        filter: grayscale(10) opacity(0.5);
+        cursor: default;
+    }
 }
 
 .logo {
@@ -77,4 +82,17 @@ body {
     display: flex;
     flex-wrap: wrap;
     padding: 1rem;
+}
+
+.error-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: calc(100vh - 370px);
+    img{
+        width: 50px;
+        margin-bottom: 0.65rem;
+    }
 }

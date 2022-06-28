@@ -8,6 +8,10 @@ const App = () => (
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<MainPage />} />
+      <Route path="/:breed" element={<MainPage />} />
+      <Route path="/:breed/:sub" element={<MainPage />} />
+
+      {/* wcześniej opcjonalne parametry działały tak /:breed?/:sub?, ale zauważyłam, że już tego nie wspierają */}
     </Routes>
   </BrowserRouter>
 );
