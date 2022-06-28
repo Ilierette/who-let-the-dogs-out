@@ -56,19 +56,15 @@ export const MainPage = () => {
                     <input type="text" name="name" placeholder="Search..." onChange={handleSearch} />
                 </label>
             </div>
-            <div className="overflow-container">
-                <div className="container">
-                    <div className="pills-container">
-                        {dogs && dogs.map((dog: Dog) => (
-                            <>
-                                <button onClick={() => handleModal(dog.name)} key={dog.name} className="pill pill-primary">{dog.name}</button>
-                                {dog.subbreed.map((breed: string) => (
-                                    <button key={breed} onClick={() => handleModal(dog.name, breed)} className="pill pill-secondary">{breed} ({dog.name})</button>
-                                ))}
-                            </>
+            <div className="pills-container">
+                {dogs && dogs.map((dog: Dog) => (
+                    <>
+                        <button onClick={() => handleModal(dog.name)} key={dog.name} className="btn btn-primary">{dog.name}</button>
+                        {dog.subbreed.map((breed: string) => (
+                            <button key={breed} onClick={() => handleModal(dog.name, breed)} className="btn btn-secondary">{breed} ({dog.name})</button>
                         ))}
-                    </div>
-                </div>
+                    </>
+                ))}
             </div>
             {
                 isOpen && <Modal breed={breed} handleModal={handleModal} />

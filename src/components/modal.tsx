@@ -1,5 +1,6 @@
 import { useServices } from "contexts";
 import React, { useEffect, useState } from "react";
+import '../style/modal.scss'
 
 interface ModalProps {
     breed: string,
@@ -21,20 +22,18 @@ export const Modal = ({ breed, handleModal }: ModalProps) => {
         })
     }
     return (
-        <div className="modal-backdrop">
-            <div className="modal-dialog">
-                <div className="modal-body">
-                    <div className="modal-header">
-                        {breed}
-                        <img src={require('../img/close.svg')} onClick={() => handleModal()}/>
-                    </div>
-                    <div className="modal-inner">
-                        <img src={breedImg} />
-                    </div>
-                    <div className="modal-footer">
-                        <button className="btn" onClick={() => handleModal()}>Close</button>
-                        <button className="btn btn-random" onClick={() => handleRandom()}>RANDOM!</button>
-                    </div>
+        <div className="modal">
+            <div className="modal-body">
+                <div className="modal-header">
+                    {breed}
+                    <img src={require('../img/close.svg')} onClick={() => handleModal()} />
+                </div>
+                <div className="modal-inner">
+                    <img src={breedImg} />
+                </div>
+                <div className="modal-footer">
+                    <button className="btn" onClick={() => handleModal()}>Close</button>
+                    <button className="btn btn-random" onClick={() => handleRandom()}>RANDOM!</button>
                 </div>
             </div>
         </div>

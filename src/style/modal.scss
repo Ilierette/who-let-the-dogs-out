@@ -1,0 +1,44 @@
+@import 'variables';
+
+.modal{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgb(0 0 0 / 50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &-body {
+        max-width: 500px;
+        margin: 1.75rem auto;
+        background-color: $white;
+        border-radius: 1rem;
+    }
+    &-header{
+        font-size: 20px;
+        padding: 1rem;
+    
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        img{
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+    }
+    &-inner {
+        img {
+            width: 100%;
+            height: auto;
+        }
+    }
+    &-footer {
+        padding: 1rem;
+        display: flex;
+        justify-content: space-between;
+    }
+}
