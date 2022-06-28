@@ -3,7 +3,7 @@ import Axios, { AxiosRequestConfig } from 'axios';
 export default function DogService() {
 
     const axios = Axios.create({
-        baseURL: "https://dog.ceo/api/breeds/",
+        baseURL: "https://dog.ceo/api",
         timeout: 3000
     })
 
@@ -13,7 +13,10 @@ export default function DogService() {
 
     return {
         getAll: () => {
-            return axios.get('list/all')
+            return axios.get('/breeds/list/all')
+        },
+        getRandom: (breed: string) => {
+            return axios.get(`/breed/${breed}/images/random`)
         }
     }
 

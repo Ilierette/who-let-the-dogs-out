@@ -1,3 +1,4 @@
+import { Modal } from "components/modal";
 import { useServices } from "contexts";
 import React, { useEffect, useState } from "react";
 
@@ -10,6 +11,9 @@ export const MainPage = () => {
     const { dogService } = useServices();
     const [dogs, setDogs] = useState(null);
     const [tempDogs, setTempDogs] = useState(null);
+
+    const [breed, setBreed] = useState("")
+    const [isOpen, setIsOpen] = useState(false)
 
     useEffect(() => {
         dogService.getAll().then((resp) => {
@@ -26,8 +30,22 @@ export const MainPage = () => {
     }, [])
 
     const handleSearch = (e) => {
-        const temp = tempDogs.filter((dog) => { return dog.name.toLowerCase().includes(e.target.value.toLowerCase()) })
+        const temp = tempDogs.filter((dog: Dog) => { return dog.name.toLowerCase().includes(e.target.value.toLowerCase()) })
         setDogs(temp)
+    }
+
+    const handleModal = (name?: string, breed?: string) => {
+        if (name) {
+            if (breed) {
+                setBreed(name + "/" + breed)
+            } else {
+                setBreed(name)
+            }
+        }
+        else {
+            setBreed("")
+        }
+        setIsOpen(!isOpen)
     }
 
     return (
@@ -35,7 +53,7 @@ export const MainPage = () => {
             <img className="logo" src={require('../img/logo.jpg')} />
             <div className="search-container">
                 <label className="form-control">
-                    <input type="text" name="name" placeholder="Wyszukaj..." onChange={handleSearch} />
+                    <input type="text" name="name" placeholder="Search..." onChange={handleSearch} />
                 </label>
             </div>
             <div className="overflow-container">
@@ -43,15 +61,18 @@ export const MainPage = () => {
                     <div className="pills-container">
                         {dogs && dogs.map((dog: Dog) => (
                             <>
-                                <button key={dog.name} className="pill pill-primary">{dog.name}</button>
+                                <button onClick={() => handleModal(dog.name)} key={dog.name} className="pill pill-primary">{dog.name}</button>
                                 {dog.subbreed.map((breed: string) => (
-                                    <button className="pill pill-secondary" key={breed}>{breed} ({dog.name})</button>
+                                    <button key={breed} onClick={() => handleModal(dog.name, breed)} className="pill pill-secondary">{breed} ({dog.name})</button>
                                 ))}
                             </>
                         ))}
                     </div>
                 </div>
             </div>
+            {
+                isOpen && <Modal breed={breed} handleModal={handleModal} />
+            }
         </>
     )
 }
