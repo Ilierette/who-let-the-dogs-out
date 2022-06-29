@@ -30,9 +30,7 @@ export const Modal = ({ breed, handleModal }: ModalProps) => {
 
     return (
         <div className="modal">
-            <div className="modal-body">
-                <div className="modal-header">
-                    <span>{!error && breed}</span>
+                <div className="modal-close">
                     <img src={require('../img/close.svg')} onClick={() => handleModal()} />
                 </div>
                 <div className="modal-inner">
@@ -41,18 +39,19 @@ export const Modal = ({ breed, handleModal }: ModalProps) => {
                             <div className="lds-ripple"><div></div><div></div></div>
                         </div> : <>
                             <img src={breedImg} />
+                            <span>{!error && breed}</span>
+
                             {error && <div className="error-container">
                                 <img src={require('../img/error.svg')} />
                                 {error}
                             </div>}
+
                         </>
                     }
                 </div>
                 <div className="modal-footer">
-                    <button className="btn" onClick={() => handleModal()}>Close</button>
                     <button disabled={error} className="btn btn-random" onClick={() => handleRandom()}>RANDOM!</button>
                 </div>
-            </div>
         </div>
     )
 }
